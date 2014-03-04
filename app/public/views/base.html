@@ -1,0 +1,16 @@
+<h1>Base</h1>
+<!-- <ul>
+    <li ng-repeat="channel in channels">
+        <a ng-href="#/play/{{channel.channel}}">[{{$index + 1}}] {{channel.channel}}
+    </li>
+</ul> -->
+
+<div class="row">
+    <div ng-repeat="channel in channels|orderBy:'rank'">
+        <a ng-href="#/play/{{channel.item.channel}}">
+            <div class="col-md-3" style="background: url({{channel.picture}}); height: 367px; background-size: cover;background-position: center center;background-repeat: no-repeat">
+                [{{$index + 1}}] {{channel.item.channel}}
+            </div>
+        </a>
+    </div>
+</div>

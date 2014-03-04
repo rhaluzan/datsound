@@ -1,0 +1,64 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Chillbox ADMIN</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body>
+
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">DATSOUND ADMIN</a>
+        </div>
+    </div><!-- /.container-fluid -->
+</nav>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Channel</th>
+                      <th># of Videos</th>
+                      <th>Last change</th>
+                      <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% channels.forEach(function(channel, index){ %>
+                        <tr>
+                            <td><%= index + 1 %></td>
+                            <td><%= channel.name %></td>
+                            <th><%= channel.count %></th>
+                            <td>
+                                <% if(channel.timestamp) { %>
+                                    <%- $.date.format('d.m.Y H:i:s', channel.timestamp) %>
+                                <% } %>
+                            </td>
+                            <td>
+                                <a href="/scrape/<%= channel.name %>" type="button" class="btn btn-primary" style="float: right; margin-left: 15px;">Scrape</a>
+                                <a href="/scrape/delete/<%= channel.name %>" type="button" class="btn btn-danger" style="float: right;">Clear entries</a>
+                            </td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.js"></script>
+</body>
+</html>

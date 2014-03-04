@@ -62,7 +62,7 @@ app.get('/scrape', function(req, res) {
                  .table('scraping')
                  .filter({'channel': channel})
                  .orderBy(r.desc('datetime')).run(connection, function(err, result) {
-                    if(result[0]) {
+                    if(result && result[0]) {
                         callback(null, result[0].datetime);
                     } else {
                         callback(null);

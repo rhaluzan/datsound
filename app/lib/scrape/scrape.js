@@ -20,8 +20,8 @@ r.connect( {host: 'localhost', port: 28015}, function(err, conn) {
     connection = conn;
 
     r.db('datsound').tableList().run(connection, function(err, result) {
-        if(!_.contains(result, 'youtube')) {
-            r.db('datsound').tableCreate('youtube').run(connection, function(err, result) {
+        if(!_.contains(result, 'scraping')) {
+            r.db('datsound').tableCreate('scraping').run(connection, function(err, result) {
                 if (err) throw err;
                 console.log(JSON.stringify(result, null, 2));
             });

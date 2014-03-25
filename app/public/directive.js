@@ -5,4 +5,4 @@ app.directive('youtubePlayer', ['youtubePlayerApi', function (youtubePlayerApi) 
             youtubePlayerApi.bindVideoPlayer(element[0].id);
         }
     };
-}])
+}]);

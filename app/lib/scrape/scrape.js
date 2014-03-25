@@ -112,12 +112,11 @@ app.get('/scrape/:uid', function(req, res) {
                 // TODO: check if already in db, then go scraping
                 async.each(data.feed.entry, function(element, callback) {
                     var thumbnails = [];
-                    // console.log(element.media$group.yt$videoid.$t);
                     db.getAll(element.media$group.yt$videoid.$t, {index:'ytid'})
                       .count()
                       .run(connection, function(err, result) {
                         if(result === 0) {
-                            // console.log('THIS SONG IS NOT ADDED, ADD IT NOW!', element.media$group.yt$videoid.$t);
+                            console.log('THIS SONG IS NOT ADDED, ADD IT NOW!', element.media$group.yt$videoid.$t);
 
                             async.each(element.media$group.media$thumbnail, function(thumbnail, callback) {
                                  thumbnails.push({

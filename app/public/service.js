@@ -56,16 +56,21 @@ app.service('youtubePlayerApi', ['$window', '$rootScope', '$log', '$q', '$http',
         order = 'normal';
         var deferred = $q.defer();
         var returnData = [];
-        var songlist = [];
         var randomNr;
-        var maxRandomNr
+        var maxRandomNr;
         var data = $http.get('/api/' + channel + '/' + skip).then(function(response) {
             console.log(response, response.data.count);
             _.each(response.data.videos, function(element, index) {
-                service.songlist.push(element.ytid);
+                var song = {};
+                song.ytid = element.ytid;
+                song.title = element.title;
+                console.log("1", song);
+                service.songlist.push(song);
             });
+            console.log("2", service.songlist);
             returnData.count = response.data.count;
-            returnData.track = response.data.videos[0].ytid;
+            returnData.trackId = response.data.videos[0].ytid;
+            returnData.trackName = response.data.videos[0].title;
             return returnData;
         });
         deferred.resolve(data);
@@ -114,17 +119,20 @@ app.service('youtubePlayerApi', ['$window', '$rootScope', '$log', '$q', '$http',
     service.nextVideo = function(channel) {
         if (this.navStatus === 'inactive') {
             this.navStatus = 'active';
+            console.log('currIndex: ', this.currentIndex, 'songlist len: ', this.songlist.length);
             if (this.currentIndex === this.songlist.length)
             {
                 service.skip = service.skip + 5;
                 console.log('skip: ', service.skip);
                 service.fetchVideo(channel, 'random', service.skip).then(function(result) {
-                    service.playVideoId(result.track);
+                    service.playVideoId(result.trackId);
+                    service.currentIndex++;
                     service.navStatus = 'inactive';
                 });
             }
             else {
-                this.playVideoId(this.songlist[this.currentIndex++]);
+                console.log('currIndex: ', this.currentIndex, 'songlist len: ', this.songlist.length);
+                this.playVideoId(this.songlist[this.currentIndex++].ytid);
                 this.navStatus = 'inactive';
             }
 
@@ -138,7 +146,7 @@ app.service('youtubePlayerApi', ['$window', '$rootScope', '$log', '$q', '$http',
     service.previousVideo = function() {
         if (this.currentIndex > 1) {
             this.currentIndex--;
-            var id = this.songlist[this.currentIndex-1];
+            var id = this.songlist[this.currentIndex-1].ytid;
             this.player.loadVideoById(id, 0, 0, 'hd720');
         }
     };

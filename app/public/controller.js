@@ -26,7 +26,7 @@ app.controller('player', ['$scope', 'youtubePlayerApi', '$route', '$routeParams'
     youtubePlayerApi.fetchVideo(channel).then(function (result) {
         $scope.count = result.count;
 
-        youtubePlayerApi.videoId = result.track;
+        youtubePlayerApi.videoId = result.trackId;
         youtubePlayerApi.loadPlayer();
     });
 

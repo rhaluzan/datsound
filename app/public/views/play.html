@@ -17,8 +17,8 @@
 <br />
 
 <ul>
-    <li ng-repeat="track in tracks" ng-class="{test: current() == $index + 1}">
-      [{{$index + 1}}] {{ track }}
+    <li ng-repeat="track in tracks track by $id($index)" ng-class="{test: current() == $index + 1}">
+      [{{$index + 1}}] {{ track.title }}
     </li>
 </ul>
 

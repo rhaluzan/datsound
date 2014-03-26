@@ -30,6 +30,10 @@ app.controller('player', ['$scope', 'youtubePlayerApi', '$route', '$routeParams'
         youtubePlayerApi.loadPlayer();
     });
 
+    $scope.togglePlay = function() {
+        youtubePlayerApi.togglePlay();
+    };
+
     $scope.next = function() {
         youtubePlayerApi.nextVideo(channel);
     };

@@ -1,20 +1,23 @@
-<!-- <input type="text" value="majesticcasual" ng-model="query"> <input type="submit" ng-click="go()">  -->
-<strong>{{ query }}</strong> channel has <strong>{{ count }}</strong> tracks
-
 <hr />
-<input type="submit" value="back" ng-click="back()"> | <input type="submit" value="Next" ng-click="next()"> | <input type="submit" value="Current" ng-click="current()">
+<center><strong>{{ query }}</strong> channel has <strong>{{ count }}</strong> tracks</center>
+<center><a ng-href="#/">Back</a></center>
 <hr />
 
 <div id="ytplayer" youtube-player></div>
 
 <hr />
+<center>
+<input type="submit" value="Play/Pause" ng-click="togglePlay()">
+<input type="submit" value="Back" ng-click="back()">
+<input type="submit" value="Next" ng-click="next()">
+<!-- <input type="submit" value="Current" ng-click="current()"> -->
+</center>
+<hr />
 
+<div style="display: none">
 <h3>Tracks:</h3>
 {{ tracks }}
-
-<br />
---------
-<br />
+</div>
 
 <ul>
     <li ng-repeat="track in tracks track by $id($index)" ng-class="{test: current() == $index + 1}">

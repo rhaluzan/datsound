@@ -34,8 +34,9 @@ app.service('youtubePlayerApi', ['$window', '$rootScope', '$log', '$q', '$http',
             width: this.playerWidth,
             videoId: this.videoId,
             playerVars: {
-                'autoplay': 0,
-                'controls': 1
+                'autoplay': 1,
+                'controls': 1,
+                'showinfo': 0
             },
             events: {
                 'onReady': this.onYoutubeReady,
@@ -114,6 +115,16 @@ app.service('youtubePlayerApi', ['$window', '$rootScope', '$log', '$q', '$http',
     // PLAYER FUNCTIONALITIES
     service.playVideoId = function(id) {
         this.player.loadVideoById(id, 0, 0, 'hd720');
+    };
+
+    service.togglePlay = function() {
+        var state = this.player.getPlayerState();
+        console.log(state);
+        if(state === 1) {
+            this.player.pauseVideo();
+            return;
+        }
+        this.player.playVideo();
     };
 
     service.nextVideo = function(channel) {
